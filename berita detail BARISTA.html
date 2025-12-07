@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Talktive 4.0 - Dewan Legislatif Mahasiswa</title>
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    :root {
+      --primary: #ff0000;
+      --navbar-bg: #ffffff;
+      --navbar-text: #000000;
+      --navbar-shadow: rgba(0,0,0,0.05);
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: Arial, sans-serif;
+      background: #f4f6fb;
+    }
+    main {
+      flex: 1 0 auto;
+    }
+    /* --- HEADER / NAVBAR --- */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--navbar-bg);
+      box-shadow: 0 2px 8px var(--navbar-shadow);
+      padding: 0.5rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      font-family: Arial, sans-serif;
+    }
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .navbar-logo img {
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+      background: #fff;
+      object-fit: cover;
+    }
+    .navbar-logo span {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: var(--primary);
+      font-family: Arial, sans-serif;
+    }
+    .navbar-menu {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
+    .navbar-menu li {
+      position: relative;
+    }
+    .navbar-menu li a {
+      text-decoration: none;
+      color: var(--navbar-text);
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      transition: background 0.2s, color 0.2s;
+      display: block;
+      font-size: 1.08rem;
+      font-family: Arial, sans-serif;
+    }
+    .navbar-menu li a.active,
+    .navbar-menu li a:hover,
+    .navbar-menu li a:focus {
+      background: var(--primary);
+      color: #fff;
+    }
+    /* Dropdown styles */
+    .has-dropdown:hover .dropdown,
+    .has-dropdown:focus-within .dropdown {
+      display: block;
+    }
+    .has-dropdown > a::after {
+      content: " ▼";
+      font-size: 0.7em;
+    }
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 110%;
+      left: 0;
+      background: #fff;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      border-radius: 8px;
+      min-width: 190px;
+      z-index: 100;
+      padding: 0.5rem 0;
+    }
+    .dropdown li { width: 100%; }
+    .dropdown li a {
+      padding: 0.7rem 1.2rem;
+      color: #222;
+      border-radius: 0;
+      font-weight: 400;
+      white-space: nowrap;
+      font-size: 1rem;
+      font-family: Arial, sans-serif;
+    }
+    .dropdown li a:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+    /* --- ISI BERITA --- */
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 36px rgba(60,60,70,0.10);
+      padding: 2.6rem 2rem 2.6rem 2rem;
+      margin-top: 2.5rem;
+      margin-bottom: 2.5rem;
+      font-family: Arial, sans-serif;
+      color: #22223b;
+    }
+    .news-title {
+      font-size: 2.1rem;
+      font-weight: 700;
+      margin-bottom: 0.7rem;
+      line-height: 1.2;
+      letter-spacing: -1px;
+    }
+    .news-meta {
+      color: #888;
+      font-size: 1rem;
+      margin-bottom: 1.8rem;
+      display: flex;
+      gap: 1.1rem;
+      align-items: center;
+    }
+    .news-thumb {
+      width: 100%;
+      max-height: 320px;
+      object-fit: cover;
+      border-radius: 13px;
+      margin-bottom: 1.6rem;
+      box-shadow: 0 2px 10px rgba(30,40,80,0.10);
+      background: #eee;
+      display: block;
+    }
+    .news-content {
+      font-size: 1.15rem;
+      line-height: 1.85;
+      color: #2a2a36;
+      margin-bottom: 2.5rem;
+      font-family: Arial, sans-serif;
+    }
+    .news-content p {
+      text-align: justify;
+      text-justify: inter-word;
+      margin-bottom: 1em;
+    }
+    .back-link {
+      color: #1769aa;
+      text-decoration: none;
+      font-size: 1.02rem;
+      margin-bottom: 2rem;
+      display: inline-block;
+      transition: color 0.2s;
+      font-family: Arial, sans-serif;
+    }
+    .back-link:hover {
+      color: #1a91da;
+      text-decoration: underline;
+    }
+    footer {
+      background: #222f3e;
+      color: #fff;
+      padding: 1rem 0;
+      flex-shrink: 0;
+      font-family: Arial, sans-serif;
+    }
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 900px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-org {
+      font-size: 1rem;
+    }
+    .footer-social {
+      display: flex;
+      gap: 1.2rem;
+    }
+    .footer-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      margin: 0 0.2rem;
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    .footer-icon svg {
+      display: block;
+    }
+    .footer-icon.instagram:hover {
+      background: #e4405f;
+    }
+    .footer-icon.instagram:hover svg path {
+      fill: #fff;
+    }
+    .footer-icon.email:hover {
+      background: #EA4335;
+    }
+    .footer-icon.email:hover svg path {
+      fill: #fff;
+    }
+    .footer-icon.youtube:hover {
+      background: #FF0000;
+    }
+    .footer-icon.youtube:hover svg path {
+      fill: #fff;
+    }
+    @media (max-width: 900px) {
+      .navbar { padding: 0.5rem 1rem; }
+      .footer-content { max-width: 98vw; }
+    }
+    @media (max-width: 700px) {
+      .container {
+        padding: 1.3rem 0.5rem;
+      }
+      .news-title {
+        font-size: 1.35rem;
+      }
+      .news-thumb {
+        max-height: 180px;
+      }
+      .news-content {
+        font-size: 1rem;
+      }
+      .navbar-logo img { width: 48px; height: 48px; }
+      .navbar-logo span { font-size: 1.01rem; }
+    }
+    @media (max-width: 520px) {
+      .navbar { flex-direction: column; align-items: flex-start; }
+      .navbar-menu { gap: 0.7rem; }
+      .footer-content {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-logo">
+     <img src="foto/logo.png" alt="Logo Organisasi">
+      <span>Dewan Legislatif Mahasiswa Poltekkes Kemenkes Jakarta III</span>
+    </div>
+    <ul class="navbar-menu">
+      <li><a href="index.html">Beranda</a></li>
+      <li class="has-dropdown">
+        <a href="#">Tentang Kami</a>
+        <ul class="dropdown">
+          <li><a href="BPH.html">Badan Pengurus Harian</a></li>
+          <li><a href="komsat.html">Komisi 1</a></li>
+          <li><a href="komdu.html">Komisi 2</a></li>
+          <li><a href="komti.html">Komisi 3</a></li>
+          <li><a href="kompat.html">Komisi 4</a></li>
+          <li><a href="komli.html">Komisi 5</a></li>
+        </ul>
+      </li>
+      <li><a href="produk hukum.html">Produk Hukum</a></li>
+      <li><a href="berita.html" class="active">Berita</a></li>
+    </ul>
+  </nav>
+  <main>
+    <div class="container">
+      <a href="berita.html" class="back-link">&larr; Kembali ke Daftar Berita</a>
+      <h1 class="news-title">Barista 2025</h1>
+      <div class="news-meta">
+        <span>Ditulis oleh Admin</span>
+        <span>7 November 2025</span>
+        <!-- <span>Kategori: Organisasi</span> Jika ingin kategori -->
+      </div>
+      <img src="foto/berita1.jpeg" alt="Gambar Berita" class="news-thumb">
+      <div class="news-content">
+        <p>
+          Telah dilaksanakan program kerja "Belajar Bersama Legislatif Jakarta Tiga (Barista)", pada tanggal 2 November 2025 di Auditorium Lt. 7 Gedung Ojo Radiat, Poltekkes Kemenkes Jakarta III. 
+        </p>
+        <p>
+         Acara ini dihadiri oleh 215 orang dengan keterangan 35 orang panitia, 168 orang formatur baik dari LKM pusat maupun LKM daerah, dan 12 orang perwakilan setiap LKM. 
+		</p>
+		<p>
+         Barista atau Belajar Bersama Legislatif Jakarta Tiga merupakan suatu kegiatan yang bertujuan untuk mengenalkan produk hukum yang berlaku di LKM Poltekkes Kemenkes Jakarta III serta tata cara persidangan kepada para formatur sehingga formatur diharapkan mampu memahami ketetapan hukum dan mekanisme persidangan yang berlaku.   
+		</p>
+		<p>Acara ini turut mengundang 2 narasumber dari luar yaitu, Annisa Nurfauziah, S.Tr.,Kes. (Purna koordinator komisi V DLM 2023) dan Vandana Yesha,  S.Tr.,Kes., (Purna koordinator komisi IV DLM 2023).
+		</p>	
+		<p>Masing-masing narasumber menyampaikan materi yang berbeda untuk narasumber pertama menyampaikan materi mengenai Tata Naskah Surat Menyurat, Tata Naskah Surat Keputusan, Tata Naskah AD/ART & GBHO, serta Tata Naskah Sidang Istimewa (SI). Sedangkan untuk narasumber kedua menyampaikan materi tentang Dasar Teori Persidangan, Aturan Umum  Persidangan, dan Tata Cara Persidangan.
+		<p>
+          Melalui kegiatan ini, formatur setiap LKM diharapkan memperoleh bekal awal mengenai pemahaman tentang Dasar Teori Persidangan, Aturan Umum  Persidangan, Tata Cara Persidangan, Tata Naskah Surat Menyurat, Tata Naskah Surat Keputusan, Tata Naskah AD/ART & GBHO, serta Tata Naskah Sidang Istimewa (SI) sehingga mampu meningkatkan pengetahuan dan pemahaman sebagai bekal dalam menjalani masa jabatan kedepannya.
+		</p>
+	</div>
+    </div>
+  </main>
+  <footer>
+    <div class="footer-content">
+      <div class="footer-org">
+        &copy; Dewan Legislatif Mahasiswa 2025
+      </div>
+      <div class="footer-social">
+        <a href="https://instagram.com/dlmpkj3" target="_blank" class="footer-icon instagram" title="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dlm.pkj3@gmail.com" 
+           class="footer-icon email" 
+           target="_blank" 
+           rel="noopener" 
+           title="Email">
+          <i class="fas fa-envelope"></i>
+        </a>
+        <a href="https://youtube.com/@dlmpkj3115" target="_blank" class="footer-icon youtube" title="YouTube">
+          <i class="fab fa-youtube"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
